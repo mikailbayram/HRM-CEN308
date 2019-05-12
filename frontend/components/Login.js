@@ -46,7 +46,7 @@ export default {
         .post("/api/token", { email, password })
         .then(res => {
           localStorage.setItem("token", res.data.token);
-          this.$router.push('/dashboard/home')
+          this.$router.push('/dashboard/staff')
         })
         .catch(err => (this.invalid = true));
     },
