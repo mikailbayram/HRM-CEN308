@@ -1,3 +1,5 @@
+import { environment } from "../api.js";
+
 export default {
   name: "Login",
   template: `
@@ -43,7 +45,7 @@ export default {
       let email = this.email;
       let password = this.password;
       this.$http
-        .post("/api/token", { email, password })
+        .post(environment.apiUrl + 'token', { email, password })
         .then(res => {
           localStorage.setItem("token", res.data.token);
           this.$router.push('/dashboard/staff')

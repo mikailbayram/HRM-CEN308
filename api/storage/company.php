@@ -27,7 +27,7 @@ class CompanyStorage
     {
         $data = array();
         $query = "";
-        $query .= "SELECT *";
+        $query .= "SELECT * ";
         $query .= "FROM Company ";
 
         // Executing real query

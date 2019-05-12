@@ -32,6 +32,10 @@ const routes = [
       {
         path: "staff/new",
         component: StaffForm
+      },
+      {
+        path: "staff/edit/:id",
+        component: StaffForm
       }
     ],
     meta: {

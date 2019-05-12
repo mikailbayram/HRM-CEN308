@@ -1,10 +1,10 @@
-import { headers } from "../api.js";
+import { headers, environment } from "../api.js";
 
 export default {
-  name: "Login",
+  name: "StaffForm",
   template: `
       <div class="w-full max-w-md mx-auto mt-20">
-        <form @submit.prevent="create" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form @submit.prevent="save" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
             <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
               Name
@@ -25,30 +25,59 @@ export default {
           </div>
           <div class="flex">
             <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="submit">
-              Create Staff
+              Save Staff
             </button>
           </div>
         </form>
         </div>
         `,
   data: function() {
-    return {
-      name: "",
-      email: "",
-      phone_number: ""
+    let staffObj = {
+      name: '',
+      email: '',
+      phone_number: ''
     };
+
+    return staffObj;
+  },
+  created: function() {
+    let staffId = this.$route.params.id;
+
+    // if parameter is passed
+    if(staffId)
+    {
+      this.$http
+        .get(environment.apiUrl + 'staff/' + staffId, { headers })
+        .then(res => {
+          this.$data.name = res.data.name;
+          this.$data.email = res.data.email;
+          this.$data.phone_number = res.data.phone_number;          
+        })
+        .catch(err => (this.invalid = true));
+    }
   },
   methods: {
-    create: function() {
-      let name = this.name;
-      let email = this.email;
-      let phone_number = this.phone_number;
-      this.$http
-        .post("/api/staff", { name, email, phone_number }, { headers })
+    save: function() {
+      let staffId = this.$route.params.id;
+      
+      if(staffId)
+      {
+        this.$http
+        .put(environment.apiUrl + 'staff/' + staffId, this.$data, { headers })
         .then(res => {
             this.$router.push("/dashboard/staff");
         })
         .catch(err => (this.invalid = true));
+      }
+      else
+      {
+      this.$http
+        .post(environment.apiUrl + 'staff', this.$data, { headers })
+        .then(res => {
+            this.$router.push("/dashboard/staff");
+        })
+        .catch(err => (this.invalid = true));
+      }
     }
   }
 };
