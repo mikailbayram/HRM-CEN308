@@ -29,7 +29,7 @@ export default {
                   </router-link>
                 </div>
                 <div class="w-1/10 h-10 text-right p-3">
-                  <button class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">
+                  <button v-on:click="deleteStaffMember(item.id)" class="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow">
                     Delete
                   </button>
                 </div>
@@ -39,7 +39,8 @@ export default {
         </div>
       </div>
     </div>
-  </div>
+  </div>  
+</div>
 </div>
   `,
   data: function() {
@@ -48,8 +49,26 @@ export default {
     };
   },
   created: function() {
-    this.$http
+    this.loadData();
+  },
+  methods: {
+    loadData: function() {
+      this.$http
       .get(environment.apiUrl + 'staff', { headers })
       .then(res => this.items = res.data.data);
+    },
+    deleteStaffMember: function(id)
+    {
+      var r = confirm("Are you sure that you want to delete selected staff member?");
+      
+      if(r)
+      {
+        this.$http
+        .delete(environment.apiUrl + 'staff/' + id, { headers })
+        .then(res => 
+          this.loadData()
+        );
+      }
+    }    
   }
 };

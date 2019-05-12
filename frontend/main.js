@@ -6,7 +6,7 @@ import Main from "./components/Main.js";
 import Staff from "./components/Staff.js";
 import StaffForm from "./components/StaffForm.js";
 
-//components
+// components
 import Sidebar from "./components/Sidebar.js";
 
 Vue.component("sidebar", {

@@ -55,3 +55,15 @@ Flight::route('PUT /staff/@id', function ($id) {
     else
         Flight::halt(401, "Unauthorized");
 });
+
+Flight::route('DELETE /staff/@id', function($id){
+    $auth = new Auth();
+    $staff = new StaffStorage();
+    $token_data = $auth->is_jwt_valid($auth->getBearerToken());
+    $staff = $staff->delete_staff($id);
+
+    if($token_data[0])    
+        Flight::halt(200, json_encode($staff));
+    else
+        Flight::halt(401, 'Unauthorized');
+});
