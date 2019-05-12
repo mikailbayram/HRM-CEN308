@@ -6,10 +6,11 @@ class Auth {
 
     private $key = "secretSignKey";
 
-    public function generate_jwt($user_data) {        
+    public function generate_jwt($company_data) {        
         $payload = array(
-            'email' => $user_data['email'],
-            'name' => $user_data['name'],
+            'email' => $company_data['email'],
+            'name' => $company_data['name'],
+            'id'=>$company_data['id'],
             'exp' => time() + (60*60)
         );
 
@@ -60,4 +61,3 @@ class Auth {
         return null;
     }
 }
-?>
