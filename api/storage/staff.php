@@ -69,7 +69,7 @@ class StaffStorage
 
     public function delete_staff($id)
     {
-        $stmt = $this->database->handler->prepare('DELETE FROM staff WHERE id = :id');
+        $stmt = $this->database->handler->prepare('DELETE FROM Staff WHERE id = :id');
         $stmt->execute(['id' => $id]);                
         //$stmt->fetch();
     }
