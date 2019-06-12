@@ -1,3 +1,16 @@
-.sidebar {
-    margin-top: 48px;
-  }
+.content {
+    margin-top: 64px;
+}
+
+.margin-top-25 
+{
+    margin-top: 25px;
+}
+
+.actions-column {
+    width: 160px;
+}
+
+.action-link {
+    margin-right: 10px;
+}
