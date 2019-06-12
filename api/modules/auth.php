@@ -11,6 +11,7 @@ Flight::route('POST /token', function () {
         $jwt = $auth->generate_jwt($company);
 
         $return_data = [
+            'id' => $company['id'],
             'fullname' => $company['name'],
             'token' => $jwt
         ];
