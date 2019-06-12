@@ -11,7 +11,7 @@ export default {
                 </li>
             </ul>
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid content">
             <div class="row">
                 <sidebar />
 
