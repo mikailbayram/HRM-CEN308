@@ -1,3 +1,13 @@
+.sidebar {
+    position: sticky;
+    top: 64px;
+    height: 100%;
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;   
+    border-right: 1px solid #CCC;
+}
+
 .content {
     margin-top: 64px;
 }
