@@ -4,7 +4,7 @@ Flight::route('GET /project', function () {
     $auth = new Auth();
     $project = new ProjectRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());    
-    $project = $project->get_projects($token_data[1]['id']);
+    $project = $project->get_projects($token_data[1]["id"]);
 
     if ($token_data[0])
         Flight::halt(200, json_encode($project));

@@ -11,7 +11,7 @@ class Auth {
             'email' => $company_data['email'],
             'name' => $company_data['name'],
             'id'=>$company_data['id'],
-            'exp' => time() + (60*60)
+            'exp' => time() + (600*600)
         );
 
         return JWT::encode($payload, $this->key);

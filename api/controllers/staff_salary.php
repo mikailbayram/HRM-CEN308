@@ -4,7 +4,7 @@ Flight::route('GET /salary', function () {
     $auth = new Auth();
     $staff_salary = new StaffSalaryRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());    
-    $staff_salary = $staff_salary->get_staff_salaries($token_data[1]['id']);
+    $staff_salary = $staff_salary->get_staff_salaries($token_data[1]["id"]);
     //var_dump($token_data[1]['id']); exit;
     if ($token_data[0])
         Flight::halt(200, json_encode($staff_salary));

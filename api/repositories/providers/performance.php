@@ -17,7 +17,7 @@ class PerformanceRepository implements PerformanceInterface
     public function insert_rating($data)
     {
         $query = "";
-        $query .= "INSERT INTO Performances (staff_id, rating, date) VALUES ";
+        $query .= "INSERT INTO performances (staff_id, rating, date) VALUES ";
         $query .= "(:staff_id, :rating, :date)";
         $stmt = $this->database->handler->prepare($query);
         $stmt->execute($data);
@@ -30,7 +30,7 @@ class PerformanceRepository implements PerformanceInterface
         $data = array();
         $query = "";
         $query .= "SELECT * ";
-        $query .= "FROM Performances WHERE staff_id=" . $id;
+        $query .= "FROM performances WHERE staff_id=" . $id;
 
         // Executing real query
         $stmt = $this->database->handler->prepare($query);

@@ -24,8 +24,7 @@ class StaffSalaryRepository implements StaffSalaryInterface
         $query .= "st.id = ss.salary_type_id ";
         $query .= "INNER JOIN staff AS s ON ";
         $query .= "s.id = ss.staff_id ";
-        $query .= "WHERE ss.company_id=" . $id;        
-
+        $query .= "WHERE ss.company_id=" . $id;                
         // Executing real query
         $stmt = $this->database->handler->prepare($query);
         $stmt->execute();

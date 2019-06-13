@@ -17,7 +17,7 @@ class CompanyRepository implements CompanyInterface
     public function validate_company($email, $password)
     {                      
         $hashed_password = password_hash('test123', PASSWORD_DEFAULT);
-        $stmt = $this->database->handler->prepare('SELECT * FROM Company WHERE email = :email');
+        $stmt = $this->database->handler->prepare('SELECT * FROM company WHERE email = :email');
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
         
@@ -32,7 +32,7 @@ class CompanyRepository implements CompanyInterface
         $data = array();
         $query = "";
         $query .= "SELECT * ";
-        $query .= "FROM Company ";
+        $query .= "FROM company ";
 
         // Executing real query
         $stmt = $this->database->handler->prepare($query);
@@ -50,7 +50,7 @@ class CompanyRepository implements CompanyInterface
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         $query = "";
-        $query .= "INSERT INTO Company (name, email, password) VALUES ";
+        $query .= "INSERT INTO company (name, email, password) VALUES ";
         $query .= "(:name, :email, :password)";
         $stmt = $this->database->handler->prepare($query);
         $stmt->execute($data);

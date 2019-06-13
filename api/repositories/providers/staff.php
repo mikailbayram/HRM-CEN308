@@ -19,7 +19,7 @@ class StaffRepository implements StaffInterface
         $data = array();
         $query = "";
         $query .= "SELECT * ";
-        $query .= "FROM Staff WHERE company_id=" . $id;
+        $query .= "FROM staff WHERE company_id=" . $id;
 
         // Executing real query
         $stmt = $this->database->handler->prepare($query);
@@ -34,7 +34,7 @@ class StaffRepository implements StaffInterface
         $data = array();
         $query = "";
         $query .= "SELECT * ";
-        $query .= "FROM Staff WHERE id=" . $id;
+        $query .= "FROM staff WHERE id=" . $id;
 
         // Executing real query
         $stmt = $this->database->handler->prepare($query);
@@ -49,7 +49,7 @@ class StaffRepository implements StaffInterface
         unset($data['id']);
 
         $query = "";
-        $query .= "INSERT INTO Staff (name, phone_number, email, company_id) VALUES ";
+        $query .= "INSERT INTO staff (name, phone_number, email, company_id) VALUES ";
         $query .= "(:name, :phone_number, :email, :company_id)";
         $stmt = $this->database->handler->prepare($query);
         $stmt->execute($data);
@@ -61,7 +61,7 @@ class StaffRepository implements StaffInterface
     {
         $data['id'] = $id;
         $query = "";
-        $query .= "UPDATE Staff SET ";
+        $query .= "UPDATE staff SET ";
         $query .= "name=:name,";
         $query .= "phone_number=:phone_number,";
         $query .= "email=:email ";        

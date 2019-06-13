@@ -4,7 +4,8 @@ Flight::route('GET /staff', function () {
     $auth = new Auth();
     $staff = new StaffRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());    
-    $staff = $staff->get_staff($token_data[1]['id']);
+    $user_data = $token_data[1];    
+    $staff = $staff->get_staff($user_data["id"]);
 
     if ($token_data[0])
         Flight::halt(200, json_encode($staff));
