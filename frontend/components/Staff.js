@@ -44,7 +44,7 @@ export default {
               </router-link>
               <a href="#" class="action-link" v-on:click="deleteStaffMember(item.id)">
                 Delete
-              </button>
+              </a>
               </td>
             </tr>
           </tbody>

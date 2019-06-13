@@ -6,6 +6,11 @@ import Main from "./components/Main.js";
 import Staff from "./components/Staff.js";
 import StaffForm from "./components/StaffForm.js";
 
+//performance
+import PerformanceForm from "./components/PerformanceForm.js";
+import PerformanceList from "./components/PerformanceList.js";
+import Performance from "./components/Performance.js";
+
 // components
 import Sidebar from "./components/Sidebar.js";
 
@@ -36,7 +41,19 @@ const routes = [
       {
         path: "staff/edit/:id",
         component: StaffForm
-      }
+      },
+      {
+        path: "performance",
+        component: PerformanceList
+      },
+      {
+        path: "performance/single/:id",
+        component: Performance
+      },
+      {
+        path: "performance/new/:id",
+        component: PerformanceForm
+      },
     ],
     meta: {
       requiresAuth: true
