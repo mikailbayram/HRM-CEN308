@@ -1,69 +1,69 @@
 <?php
 
-Flight::route('GET /staff', function () {
+Flight::route('GET /salary', function () {
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $staff_salary = new StaffSalaryRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());    
-    $staff = $staff->get_staff($token_data[1]['id']);
+    $staff_salary = $staff_salary->get_staff_salaries($token_data[1]['id']);
     //var_dump($token_data[1]['id']); exit;
     if ($token_data[0])
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($staff_salary));
     else
         Flight::halt(401, "Unauthorized");
 });
 
-Flight::route('GET /staff/@id', function($id){
+Flight::route('GET /salary/@id', function($id){
     $data = array();
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $staff_salary = new StaffSalaryRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
-    $staff = $staff->get_staff_member($id);
+    $staff_salary = $staff_salary->get_staff_salary($id);
 
     if($token_data[0])        
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($staff_salary));
     else 
         Flight::halt(401, 'Unauthorized');    
 });
 
-Flight::route('POST /staff', function () {
+Flight::route('POST /salary', function () {
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $staff_salary = new StaffSalaryRepository();
     $request = Flight::request();
     $request = $request->data->getData();
 
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
     $request['company_id'] = $token_data[1]['id'];
     
-    $staff = $staff->insert_staff($request);
+    $staff_salary = $staff_salary->insert_staff_salary($request);
 
     if ($token_data[0])
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($staff_salary));
     else
         Flight::halt(401, "Unauthorized");
 });
 
-Flight::route('PUT /staff/@id', function ($id) {
+Flight::route('PUT /salary/@id', function ($id) {
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $staff_salary = new StaffSalaryRepository();
     $request = Flight::request();
     $request = $request->data->getData();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
-    $staff = $staff->update_staff($id, $request);
+    $staff_salary = $staff_salary->update_staff_salary($id, $request);
 
     if ($token_data[0])
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($staff_salary));
     else
         Flight::halt(401, "Unauthorized");
 });
 
-Flight::route('DELETE /staff/@id', function($id){
+Flight::route('DELETE /salary/@id', function($id){
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $staff_salary = new StaffSalaryRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
-    $staff = $staff->delete_staff($id);
+    $staff_salary = $staff_salary->delete_staff_salary($id);
 
     if($token_data[0])    
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($staff_salary));
     else
         Flight::halt(401, 'Unauthorized');
 });

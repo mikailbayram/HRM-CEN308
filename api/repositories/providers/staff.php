@@ -1,5 +1,9 @@
 <?php
-class StaffStorage
+
+// Interface
+include "repositories/contracts/staff.php";
+
+class StaffRepository implements StaffInterface
 {
     private $config;
     private $database;

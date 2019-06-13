@@ -1,5 +1,9 @@
 <?php
-class PerformanceStorage
+
+// Interface
+include "repositories/contracts/performance.php";
+
+class PerformanceRepository implements PerformanceInterface
 {
     private $config;
     private $db;

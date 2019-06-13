@@ -1,5 +1,9 @@
 <?php
-class CompanyStorage
+
+// Interface
+include "repositories/contracts/company.php";
+
+class CompanyRepository implements CompanyInterface
 {
     private $config;
     private $db;
