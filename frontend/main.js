@@ -14,6 +14,7 @@ import Performance from "./components/Performance.js";
 // components
 import Sidebar from "./components/Sidebar.js";
 import StaffSalary from "./components/StaffSalary.js";
+import StaffSalaryForm from "./components/StaffSalaryForm.js";
 
 Vue.component("sidebar", {
   template: Sidebar
@@ -46,6 +47,14 @@ const routes = [
       {
         path: "staff-salary",
         component: StaffSalary
+      },
+      {
+        path: "staff-salary/edit/:id",
+        component: StaffSalaryForm
+      },
+      {
+        path: "staff-salary/new",
+        component: StaffSalaryForm
       },
       {
         path: "performance",

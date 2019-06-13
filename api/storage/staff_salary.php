@@ -14,7 +14,7 @@ class StaffSalaryStorage
     {
         $data = array();
         $query = "";
-        $query .= "SELECT ss.id, st.type, s.name, ss.amount ";
+        $query .= "SELECT ss.id, st.type, s.name, ss.amount, ss.date ";
         $query .= "FROM staff_salary AS ss ";
         $query .= "INNER JOIN salary_type AS st ON ";
         $query .= "st.id = ss.salary_type_id ";
@@ -41,7 +41,9 @@ class StaffSalaryStorage
         $stmt = $this->database->handler->prepare($query);
         $stmt->execute();
         $staff = $stmt->fetch();
-        $data['data'] = $staff;              
+        $data['data'] = $staff; 
+        $data['salary_types'] = $this->get_salary_types();   
+        $data['staff'] = $this->get_staff();          
         return $data;
     }
 
@@ -49,10 +51,12 @@ class StaffSalaryStorage
     {
         // PDO complains if there are unused parameters, so we are removing additional parameters
         unset($data['id']);
+        unset($data['staff']);
+        unset($data['salary_types']);
 
         $query = "";
-        $query .= "INSERT INTO staff_salary (staff_id, salary_type_id, amount, description) VALUES ";
-        $query .= "(:staff_id, :salary_type_id, :amount, :description)";
+        $query .= "INSERT INTO staff_salary (staff_id, salary_type_id, amount, description, company_id) VALUES ";
+        $query .= "(:staff_id, :salary_type_id, :amount, :description, :company_id)";
         $stmt = $this->database->handler->prepare($query);
         $stmt->execute($data);
         //$stmt->fetch();
@@ -61,6 +65,8 @@ class StaffSalaryStorage
 
     public function update_staff_salary($id, $data)
     {
+        unset($data['staff']);
+        unset($data['salary_types']);
         $data['id'] = $id;
         $query = "";
         $query .= "UPDATE staff_salary SET ";
@@ -69,7 +75,6 @@ class StaffSalaryStorage
         $query .= "description=:description,";
         $query .= "amount=:amount ";        
         $query .= "WHERE id = :id"; 
-              
         $stmt = $this->database->handler->prepare($query);
         $stmt->execute($data);
     }
@@ -79,5 +84,27 @@ class StaffSalaryStorage
         $stmt = $this->database->handler->prepare('DELETE FROM staff_salary WHERE id = :id');
         $stmt->execute(['id' => $id]);                
         //$stmt->fetch();
+    }
+
+    private function get_salary_types()
+    {
+        $query = "";
+        $query .= "SELECT * ";
+        $query .= "FROM salary_type";;
+
+        // Executing real query
+        $stmt = $this->database->handler->prepare($query);
+        $stmt->execute();
+        $salary_type = $stmt->fetchAll();
+        return $salary_type;
+    }
+
+    private function get_staff()
+    {
+        $auth = new Auth();
+        $staff = new StaffStorage();
+        $token_data = $auth->is_jwt_valid($auth->getBearerToken());    
+        $staff = $staff->get_staff($token_data[1]['id']);
+        return $staff['data'];
     }
 }
