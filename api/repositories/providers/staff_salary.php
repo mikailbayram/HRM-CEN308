@@ -106,7 +106,7 @@ class StaffSalaryRepository implements StaffSalaryInterface
     private function get_staff()
     {
         $auth = new Auth();
-        $staff = new StaffStorage();
+        $staff = new StaffRepository();
         $token_data = $auth->is_jwt_valid($auth->getBearerToken());    
         $staff = $staff->get_staff($token_data[1]['id']);
         return $staff['data'];

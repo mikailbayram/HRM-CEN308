@@ -2,7 +2,7 @@
 
 Flight::route('POST /token', function () {
     $auth = new Auth();
-    $company = new CompanyStorage();
+    $company = new CompanyRepository();
     $request = Flight::request();
     $company = $company->validate_company($request->data['email'], $request->data['password']);
 
@@ -23,7 +23,7 @@ Flight::route('POST /token', function () {
 
 Flight::route('POST /register', function () {
     // $auth = new Auth();
-    $company = new CompanyStorage();
+    $company = new CompanyRepository();
     $request = Flight::request();
 
     $company = $company->insert_company($request->data->getData());
