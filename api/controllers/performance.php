@@ -15,7 +15,7 @@
 Flight::route('GET /performance/@id', function($id){
     $data = array();
     $auth = new Auth();
-    $staff = new PerformanceStorage();
+    $staff = new PerformanceRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
     $staff = $staff->get_staff_ratings($id);
 
@@ -27,7 +27,7 @@ Flight::route('GET /performance/@id', function($id){
 
 Flight::route('POST /performance', function () {
     $auth = new Auth();
-    $performance = new PerformanceStorage();
+    $performance = new PerformanceRepository();
     $request = Flight::request();
     $request = $request->data->getData();
 

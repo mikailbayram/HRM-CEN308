@@ -1,5 +1,9 @@
 <?php
-class PerformanceStorage
+
+// Interface
+include "repositories/contracts/performance.php";
+
+class PerformanceRepository implements PerformanceInterface
 {
     private $config;
     private $db;
@@ -12,8 +16,6 @@ class PerformanceStorage
 
     public function insert_rating($data)
     {
-        // PDO complains if there are unused parameters, so we are removing additional parameters
-
         $query = "";
         $query .= "INSERT INTO Performances (staff_id, rating, date) VALUES ";
         $query .= "(:staff_id, :rating, :date)";

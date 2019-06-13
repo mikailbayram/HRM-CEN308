@@ -1,10 +1,10 @@
 import { headers, environment } from "../api.js";
 
 export default {
-  name: "StaffForm",
+  name: "ProjectForm",
   template: `
     <div class="form-container">
-    <h3>Staff</h3>
+    <h3>Project</h3>
       <form @submit.prevent="save">
         <div class="form-group row">
           <label for="name" class="col-4 col-form-label">Name</label> 
@@ -13,17 +13,11 @@ export default {
           </div>
         </div>
         <div class="form-group row">
-          <label for="email" class="col-4 col-form-label">Email</label> 
+          <label for="details" class="col-4 col-form-label">Details</label> 
           <div class="col-8">
-            <input id="email" name="email" v-model="email" type="text" class="form-control">
+            <textarea id="details" name="details" v-model="details" type="text" class="form-control"></textarea>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="phone_number" class="col-4 col-form-label">Phone Number</label> 
-          <div class="col-8">
-            <input id="phone_number" v-model="phone_number" name="phone_number" type="text" class="form-control">
-          </div>
-        </div> 
         <div class="form-group row">
           <div class="offset-4 col-8">
             <button name="submit" type="submit" class="btn btn-primary">Submit</button>
@@ -35,47 +29,45 @@ export default {
   data: function() {
     let staffObj = {
       name: '',
-      email: '',
-      phone_number: ''
+      details: ''
     };
 
     return staffObj;
   },
   created: function() {
-    let staffId = this.$route.params.id;
+    let projectId = this.$route.params.id;
 
     // if parameter is passed
-    if(staffId)
+    if(projectId)
     {
       this.$http
-        .get(environment.apiUrl + 'staff/' + staffId, { headers })
+        .get(environment.apiUrl + 'project/' + projectId, { headers })
         .then(res => {
           this.$data.name = res.data.name;
-          this.$data.email = res.data.email;
-          this.$data.phone_number = res.data.phone_number;          
+          this.$data.details = res.data.details;       
         })
         .catch(err => (this.invalid = true));
     }
   },
   methods: {
     save: function() {
-      let staffId = this.$route.params.id;
+      let projectId = this.$route.params.id;
       
-      if(staffId)
+      if(projectId)
       {
         this.$http
-        .put(environment.apiUrl + 'staff/' + staffId, this.$data, { headers })
+        .put(environment.apiUrl + 'project/' + projectId, this.$data, { headers })
         .then(res => {
-            this.$router.push("/dashboard/staff");
+            this.$router.push("/dashboard/project");
         })
         .catch(err => (this.invalid = true));
       }
       else
       {
       this.$http
-        .post(environment.apiUrl + 'staff', this.$data, { headers })
+        .post(environment.apiUrl + 'project', this.$data, { headers })
         .then(res => {
-            this.$router.push("/dashboard/staff");
+            this.$router.push("/dashboard/project");
         })
         .catch(err => (this.invalid = true));
       }

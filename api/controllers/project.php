@@ -1,69 +1,69 @@
 <?php
 
-Flight::route('GET /staff', function () {
+Flight::route('GET /project', function () {
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $project = new ProjectRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());    
-    $staff = $staff->get_staff($token_data[1]['id']);
-    //var_dump($token_data[1]['id']); exit;
+    $project = $project->get_projects($token_data[1]['id']);
+
     if ($token_data[0])
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($project));
     else
         Flight::halt(401, "Unauthorized");
 });
 
-Flight::route('GET /staff/@id', function($id){
+Flight::route('GET /project/@id', function($id){
     $data = array();
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $project = new ProjectRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
-    $staff = $staff->get_staff_member($id);
+    $project = $project->get_project($id);
 
     if($token_data[0])        
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($project));
     else 
         Flight::halt(401, 'Unauthorized');    
 });
 
-Flight::route('POST /staff', function () {
+Flight::route('POST /project', function () {
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $project = new ProjectRepository();
     $request = Flight::request();
     $request = $request->data->getData();
 
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
     $request['company_id'] = $token_data[1]['id'];
     
-    $staff = $staff->insert_staff($request);
+    $project = $project->insert_project($request);
 
     if ($token_data[0])
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($project));
     else
         Flight::halt(401, "Unauthorized");
 });
 
-Flight::route('PUT /staff/@id', function ($id) {
+Flight::route('PUT /project/@id', function ($id) {
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $project = new ProjectRepository();
     $request = Flight::request();
     $request = $request->data->getData();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
-    $staff = $staff->update_staff($id, $request);
+    $project = $project->update_project($id, $request);
 
     if ($token_data[0])
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($project));
     else
         Flight::halt(401, "Unauthorized");
 });
 
-Flight::route('DELETE /staff/@id', function($id){
+Flight::route('DELETE /project/@id', function($id){
     $auth = new Auth();
-    $staff = new StaffStorage();
+    $project = new ProjectRepository();
     $token_data = $auth->is_jwt_valid($auth->getBearerToken());
-    $staff = $staff->delete_staff($id);
+    $project = $project->delete_project($id);
 
     if($token_data[0])    
-        Flight::halt(200, json_encode($staff));
+        Flight::halt(200, json_encode($project));
     else
         Flight::halt(401, 'Unauthorized');
 });

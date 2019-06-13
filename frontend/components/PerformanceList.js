@@ -6,7 +6,7 @@ export default {
     <div class="grid-wrapper">
     <div class="row">
       <div class="col-md-8">
-        <h2>Staff</h2>
+        <h2>Performance</h2>
       </div>
     </div>
     <div class="row">
