@@ -1,12 +1,12 @@
 import { headers, environment } from "../api.js";
 
 export default {
-  name: "StaffForm",
+  name: "Performance",
   template: `
         <div class="grid-wrapper">
             <div class="row">
                 <div class="col-md-8">
-                    <h2>Staff</h2>
+                    <h2>Performance</h2>
                 </div>
             <div class="col-md-4">
                 <router-link tag="button" :to="{path:'/dashboard/performance/new/' + staffId }" class="btn btn-primary float-right">
@@ -57,8 +57,6 @@ export default {
   },
   created: function() {
     this.staffId = this.$route.params.id;
-    // if parameter is passed
-    console.log(this.staffId);
     if(this.staffId)
     {
       this.$http
