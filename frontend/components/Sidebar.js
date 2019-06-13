@@ -26,6 +26,12 @@ const Sidebar = `
                         Performance <span class="sr-only">(current)</span>
                     </a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#/dashboard/project">
+                        <span data-feather="home"></span>
+                        Project <span class="sr-only">(current)</span>
+                    </a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -10,10 +10,12 @@ require 'repositories/providers/company.php';
 require 'repositories/providers/staff.php';
 require 'repositories/providers/performance.php';
 require 'repositories/providers/staff_salary.php';
+require 'repositories/providers/project.php';
 
 require 'controllers/auth.php';
 require 'controllers/staff.php';
 require 'controllers/performance.php';
 require 'controllers/staff_salary.php';
+require 'controllers/project.php';
 
 Flight::start();

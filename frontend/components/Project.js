@@ -1,15 +1,15 @@
 import { headers, environment } from "../api.js";
 
 export default {
-  name: "StaffSalary",
+  name: "Project",
   template: `
   <div class="grid-wrapper">
     <div class="row">
       <div class="col-md-8">
-        <h2>Staff Salary</h2>
+        <h2>Project</h2>
       </div>
       <div class="col-md-4">
-        <router-link tag="button" to="/dashboard/staff-salary/new" class="btn btn-primary float-right">
+        <router-link tag="button" to="/dashboard/project/new" class="btn btn-primary float-right">
           Create New
         </router-link>
       </div>
@@ -23,10 +23,7 @@ export default {
                 Name
               </th>
               <th>
-                Type
-              </th>
-              <th>
-                Salary
+                Details
               </th>
               <th class="actions-column">
                 Actions
@@ -39,16 +36,13 @@ export default {
               {{ item.name }}
               </td>
               <td>
-              {{ item.type }}
+              {{ item.details }}
               </td>
               <td>
-              {{ item.amount }}
-              </td>
-              <td>
-              <router-link class="action-link" tag="a" :to="{ path: '/dashboard/staff-salary/edit/' + item.id }">
+              <router-link class="action-link" tag="a" :to="{ path: '/dashboard/project/edit/' + item.id }">
                 Edit
               </router-link>
-              <a href="#" class="action-link" v-on:click="deleteStaffSalary(item.id)">
+              <a href="#" class="action-link" v-on:click="deleteProject(item.id)">
                 Delete
               </a>
               </td>
@@ -70,17 +64,17 @@ export default {
   methods: {
     loadData: function() {
       this.$http
-      .get(environment.apiUrl + 'salary', { headers })
+      .get(environment.apiUrl + 'project', { headers })
       .then(res => this.items = res.data.data);
     },
-    deleteStaffSalary: function(id)
+    deleteProject: function(id)
     {
-      var r = confirm("Are you sure that you want to delete selected staff member?");
+      var r = confirm("Are you sure that you want to delete selected project?");
       
       if(r)
       {
         this.$http
-        .delete(environment.apiUrl + 'salary/' + id, { headers })
+        .delete(environment.apiUrl + 'project/' + id, { headers })
         .then(res => 
           this.loadData()
         );

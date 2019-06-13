@@ -15,6 +15,8 @@ import Performance from "./components/Performance.js";
 import Sidebar from "./components/Sidebar.js";
 import StaffSalary from "./components/StaffSalary.js";
 import StaffSalaryForm from "./components/StaffSalaryForm.js";
+import Project from "./components/Project.js";
+import ProjectForm from "./components/ProjectForm.js";
 
 Vue.component("sidebar", {
   template: Sidebar
@@ -35,6 +37,10 @@ const routes = [
     path: "/dashboard/",
     component: Main,
     children: [
+      {
+        path: "",
+        component: Login
+      },
       {
         path: "staff",
         component: Staff
@@ -71,6 +77,18 @@ const routes = [
         path: "performance/new/:id",
         component: PerformanceForm
       },
+      {
+        path: "project",
+        component: Project
+      },
+      {
+        path: "project/new",
+        component: ProjectForm
+      },
+      {
+        path: "project/edit/:id",
+        component: ProjectForm
+      }
     ],
     meta: {
       requiresAuth: true
