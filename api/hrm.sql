@@ -2,10 +2,10 @@
 -- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 12, 2019 at 12:07 PM
+-- Host: localhost:3306
+-- Generation Time: Jun 13, 2019 at 07:52 AM
 -- Server version: 5.7.26-0ubuntu0.18.04.1
--- PHP Version: 7.2.17-0ubuntu0.18.04.1
+-- PHP Version: 7.2.19-0ubuntu0.18.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,7 +38,8 @@ CREATE TABLE `Company` (
 --
 
 INSERT INTO `Company` (`id`, `name`, `email`, `password`) VALUES
-(1, 'nova', 'mail@mail.com', '$2y$10$AdTIfEeBW5HJYU80plB/w.o7C3LO5Oexq9oZYyxfQgcXUjwQxnEFu');
+(1, 'nova', 'mail@mail.com', ''),
+(2, 'mikail', 'email@mail.com', '$2y$10$mjQVzGX.XIzo9KADY73ieuVIq2YP3F7rZpWv6jtbKrWlsTRrKKB12');
 
 -- --------------------------------------------------------
 
@@ -51,6 +52,26 @@ CREATE TABLE `Department` (
   `name` varchar(255) NOT NULL,
   `company_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Performances`
+--
+
+CREATE TABLE `Performances` (
+  `staff_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Performances`
+--
+
+INSERT INTO `Performances` (`staff_id`, `rating`, `date`) VALUES
+(3, 5, '2019-06-13'),
+(3, 4, '2019-06-13');
 
 -- --------------------------------------------------------
 
@@ -72,7 +93,9 @@ CREATE TABLE `Staff` (
 --
 
 INSERT INTO `Staff` (`id`, `company_id`, `name`, `phone_number`, `email`, `department_id`) VALUES
-(2, 1, 'Mikail Bayram', '1123332', 'mail@mail.com', NULL);
+(2, 1, 'Mikail Bayram', '1123332', 'mail@mail.com', NULL),
+(3, 2, 'Mikail Bayram', '123321', 'mail@mail.com', NULL),
+(4, 2, 'Fadil', '1233211231', 'Fadilovski', NULL);
 
 --
 -- Indexes for dumped tables
@@ -92,6 +115,12 @@ ALTER TABLE `Department`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `Performances`
+--
+ALTER TABLE `Performances`
+  ADD KEY `staff_id` (`staff_id`);
+
+--
 -- Indexes for table `Staff`
 --
 ALTER TABLE `Staff`
@@ -100,14 +129,14 @@ ALTER TABLE `Staff`
   ADD KEY `department_id` (`department_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT for dumped tables:4200
 --
 
 --
 -- AUTO_INCREMENT for table `Company`
 --
 ALTER TABLE `Company`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Department`
 --
@@ -117,10 +146,16 @@ ALTER TABLE `Department`
 -- AUTO_INCREMENT for table `Staff`
 --
 ALTER TABLE `Staff`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `Performances`
+--
+ALTER TABLE `Performances`
+  ADD CONSTRAINT `staff_id` FOREIGN KEY (`staff_id`) REFERENCES `Staff` (`id`);
 
 --
 -- Constraints for table `Staff`
